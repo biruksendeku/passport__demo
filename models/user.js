@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
-const express = require('express');
 const { isEmail } = require('validator');
 require('dotenv').config();
-
-const app = express();
 
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
