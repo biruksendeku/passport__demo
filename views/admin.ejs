@@ -1,0 +1,21 @@
+<style>
+.email__place {
+	background-color: dodgerblue;
+	padding: 5px;
+	border-radius: 6px;
+	color: #fff;
+	text-align: left;
+	display: inline;
+	font-size: 1.1rem;
+	font-weight: 600;
+}
+</style>
+
+<% if(!user) { %>
+	<h2 style="text-align: left;"> Welcome User </h2>
+<% } else{ %>
+	<p class="email__place"> <%= user.email %> </p>
+	<h2 style="text-align: left;"> Welcome you are <span style="color: tomato;"><%= user.role %></span> user. </h2>
+<% } %>
+
+<h1 style="color: green;text-align: center;"> Admin Dashboard Access Granted! </h1>
