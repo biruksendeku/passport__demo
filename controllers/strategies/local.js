@@ -12,7 +12,7 @@ passport.use(new LocalStrategy(
 	async (email, password, done) => {
 		try {
 			if(!email || !password) {
-				return done(new Error('Missing Creentials'), null);
+				return done(new Error('Incorrect email or password'), null);
 			}
 
 			const user = await User.findOne({ email });
@@ -22,7 +22,7 @@ passport.use(new LocalStrategy(
 
 			const isValid = await comparePassword(password, user.password);
 			if(!isValid) {
-				return done(new Error('Invalid Credentials'), null);
+				return done(new Error('Incorrect email or password'), null);
 			}
 
 			done(null, user);
