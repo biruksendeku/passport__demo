@@ -28,4 +28,7 @@
 
 <a href="/logout" style="font-size: 1.5rem; font-weight: 600;"> Logout </a>
 <br><hr><br>
-<a href="/admin" style="font-size: 1.5rem; font-weight: 600;"> Admin </a>
+
+<% if(user.role === 'admin') { %>
+	<a href="/admin" style="font-size: 1.5rem; font-weight: 600;"> Admin </a>
+<% } %>
