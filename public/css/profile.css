@@ -1,0 +1,10 @@
+.email__place {
+	text-align: center;
+	background-color: dodgerblue;
+	color: #fff;
+	display: inline;
+	border-radius: 8px;
+	padding: 5px;
+	font-size: 1.1rem;
+	font-weight: 600;
+}
