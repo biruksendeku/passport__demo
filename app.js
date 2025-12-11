@@ -10,7 +10,7 @@ const publicFolder = path.join(__dirname, 'public');
 
 const { User } = require('./models/user');
 const { isAuthenticated, isAdmin } = require('./controllers/auth');
-const { hashPassword, comparePassword } = require('./controllers/helper');
+const { hashPassword } = require('./controllers/helper');
 const passport = require('./controllers/strategies/local');
 const { body, validationResult } = require('express-validator');
 
