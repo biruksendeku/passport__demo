@@ -10,8 +10,9 @@ const publicFolder = path.join(__dirname, 'public');
 
 const { User } = require('./models/user');
 const { isAuthenticated, isAdmin } = require('./controllers/auth');
-const { hashPassword, comparePassword } = require('./controllers/helper');
+const { hashPassword } = require('./controllers/helper');
 const passport = require('./controllers/strategies/local');
+const { body, validationResult } = require('express-validator');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -47,12 +48,19 @@ app.get('/signup', (req, res, next) => {
 	}
 });
 
-app.post('/signup', async (req, res, next) => {
+app.post('/signup',
+	body('name').trim().notEmpty().withMessage('Name is required'),
+	body('email').isEmail().withMessage('Invalid email address'),
+	body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+	body('role').isIn([ 'regular', 'admin' ]).withMessage('Invalid role'),
+	async (req, res, next) => {
 	try {
-		const { name, email, password, role } = req.body;
-		if(!name || !email || !password || !role) {
-			return res.send('Missing Credentials');
+		const errors = validationResult(req);
+		if(!errors.isEmpty()) {
+			return res.status(400).send(errors.array().map(err => err.msg).join('<br>'));
 		}
+
+		const { name, email, password, role } = req.body;
 
 		const user = await User.findOne({ email });
 		if(user) {

@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
-const express = require('express');
 const { isEmail } = require('validator');
 require('dotenv').config();
-
-const app = express();
 
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
@@ -41,29 +38,6 @@ const userSchema = new mongoose.Schema({
 	}
 });
 
-const passSchema = new mongoose.Schema({
-	name: {
-		type: String,
-		trim: true,
-		required: [ true, 'Name field is required' ]
-	},
-	email: {
-		type: String,
-		requird: [ true, 'Email field is required' ],
-		unique: true,
-		index: true,
-		lowercase: true,
-		trim: true,
-		validate: [ isEmail, 'Invalid email address' ]
-	},
-	password: {
-		type: String,
-		required: [ true, 'Password field is required' ],
-		minlength: [ 6, 'Minimum password should be 6 characters long' ]
-	}
-});
-
 const User = mongoose.model('user', userSchema);
-const Pass = mongoose.model('pass', passSchema);
 
-module.exports = { User, Pass };
+module.exports = { User };
